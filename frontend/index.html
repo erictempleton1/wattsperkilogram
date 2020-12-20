@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Watts Per Kilogram</title>
   <link rel="stylesheet" href="/assets/css/bulma.min.css">
+  <script src="/assets/js/main.js"></script>
 </head>
 
 <body>
@@ -17,39 +18,18 @@
       <p class="subtitle">
         Calulate your watts per kilogram
       </p>
+      <div id="message"></div>
       <div class="field">
         <div class="control">
-          <input class="input is-medium" type="number" placeholder="Watts">
+          <input id="watts-input" class="input is-medium" type="number" placeholder="Watts" min=1 max=1000>
         </div>
       </div>
       <div class="field">
         <div class="control">
-          <input class="input is-medium" type="number" placeholder="Body Weight">
-          <span>
-            <div class="field">
-              <div class="control">
-                <div class="select is-primary">
-                  <select>
-                    <option value="lbs">lbs</option>
-                    <option value="kgs">kgs</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </span>
+          <input id="weight-input" class="input is-medium" type="number" placeholder="Body Weight (lbs)" min=1 max=500>
         </div>
       </div>
-      <div class="field has-addons">
-        <div class="control">
-          <input class="input" type="text" placeholder="Find a repository">
-        </div>
-        <div class="control">
-          <a class="button is-info">
-            Search
-          </a>
-        </div>
-      </div>
-      <button class="button is-medium is-primary"">Calculate</button>
+      <button onclick="calculate()" class="button is-medium is-primary"">Calculate</button>
     </div>
   </section>
 </body>
