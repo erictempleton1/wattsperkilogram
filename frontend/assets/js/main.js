@@ -3,19 +3,29 @@ function calculate() {
   let weightInput = document.getElementById('weight-input').value;
   const inputValid = validateInput(wattsInput, weightInput);
   if (inputValid) {
-    removeError();
-    // TODO - do some w/kg calc
+    removeMessage();
+    addWattsKgMessage("3.5 watts/kg");
   }
+}
+
+function addWattsKgMessage(wattsKg) {
+  document.getElementById("message").innerHTML = 
+  `<div class="notification is-primary is-light mb-4">
+    <button onclick="removeMessage()" class="delete"></button>
+    <span class="is-size-3">
+      <strong>${wattsKg}</strong>
+    </span>
+   </div>`
 }
 
 function addError(message) {
   document.getElementById("message").innerHTML =
   `<div class="notification is-danger is-light mb-4">
-   <button onclick="removeError()" class="delete"></button>${message}
+   <button onclick="removeMessage()" class="delete"></button>${message}
    </div>`;
 }
 
-function removeError() {
+function removeMessage() {
   document.getElementById("message").innerHTML = '';
 }
 
