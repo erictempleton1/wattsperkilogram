@@ -1,26 +1,15 @@
-function calculate() {
-  let wattsInput = document.getElementById('watts-input').value;
-  let weightInput = document.getElementById('weight-input').value;
-  const inputValid = validateInput(wattsInput, weightInput);
-  if (inputValid) {
-    removeMessage();
-    addWattsKgMessage("3.5 watts/kg");
-  }
-}
-
 function addWattsKgMessage(wattsKg) {
-  document.getElementById("message").innerHTML = 
-  `<div class="notification is-primary is-light mb-4">
-    <button onclick="removeMessage()" class="delete"></button>
-    <span class="is-size-3">
+  document.getElementById("message").innerHTML =
+    `<div class="notification is-primary is-light mb-4">
+     <span class="is-size-3">
       <strong>${wattsKg}</strong>
-    </span>
+     </span>
    </div>`
 }
 
 function addError(message) {
   document.getElementById("message").innerHTML =
-  `<div class="notification is-danger is-light mb-4">
+    `<div class="notification is-danger is-light mb-4">
    <button onclick="removeMessage()" class="delete"></button>${message}
    </div>`;
 }
@@ -29,19 +18,28 @@ function removeMessage() {
   document.getElementById("message").innerHTML = '';
 }
 
-function validateInput(watts, weight) {
-  let inputValid = true;
-  if (!watts && !weight) {
-    addError('Please add watts and weight');
-    inputValid = false;
+function poundsToKg(pounds) {
+  const kgs = pounds / 2.2046;
+  return kgs.toFixed(2);
+}
+
+window.onload = function () {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const form = document.getElementById('watts-kg-form');
+  const wattsInput = document.getElementById('watts-input');
+  const weightInput = document.getElementById('weight-input');
+  const unitsSelect = document.getElementById('units-select');
+  wattsInput.value = urlParams.get('watts');
+  weightInput.value = urlParams.get('weight');
+  unitsSelect.value = urlParams.get('units');
+  const formValid = form.checkValidity();
+  if (formValid) {
+    let kilograms = weightInput.value;
+    if (unitsSelect.value === 'lbs') {
+      kilograms = poundsToKg(weightInput.value);
+    }
+    const wattsPerKg = wattsInput.value / kilograms;
+    addWattsKgMessage(`${wattsPerKg.toFixed(2)} watts/kg`);
   }
-  if (!watts) {
-    addError('Please add watts');
-    inputValid = false;
-  }
-  if (!weight) {
-    addError('Please add weight');
-    inputValid = false;
-  }
-  return inputValid;
 }
