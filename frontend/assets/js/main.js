@@ -26,20 +26,19 @@ function poundsToKg(pounds) {
 window.onload = function () {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
-  const form = document.getElementById('watts-kg-form');
   const wattsInput = document.getElementById('watts-input');
   const weightInput = document.getElementById('weight-input');
   const unitsSelect = document.getElementById('units-select');
   wattsInput.value = urlParams.get('watts');
   weightInput.value = urlParams.get('weight');
-  unitsSelect.value = urlParams.get('units');
-  const formValid = form.checkValidity();
+  unitsSelect.value = urlParams.get('units') || 'lbs';
+  const formValid = document.getElementById('watts-kg-form').checkValidity();
   if (formValid) {
     let kilograms = weightInput.value;
     if (unitsSelect.value === 'lbs') {
       kilograms = poundsToKg(weightInput.value);
     }
     const wattsPerKg = wattsInput.value / kilograms;
-    addWattsKgMessage(`${wattsPerKg.toFixed(2)} watts/kg`);
+    addWattsKgMessage(`${wattsPerKg.toFixed(1)} watts/kg`);
   }
 }
