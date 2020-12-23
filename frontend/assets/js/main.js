@@ -7,17 +7,6 @@ function addWattsKgMessage(wattsKg) {
    </div>`
 }
 
-function addError(message) {
-  document.getElementById("message").innerHTML =
-    `<div class="notification is-danger is-light mb-4">
-   <button onclick="removeMessage()" class="delete"></button>${message}
-   </div>`;
-}
-
-function removeMessage() {
-  document.getElementById("message").innerHTML = '';
-}
-
 function poundsToKg(pounds) {
   const kgs = pounds / 2.2046;
   return kgs.toFixed(2);
