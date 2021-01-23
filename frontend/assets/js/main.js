@@ -12,6 +12,11 @@ function poundsToKg(pounds) {
   return kgs.toFixed(2);
 }
 
+function clearForm() {
+  document.getElementById("watts-kg-form").reset();
+  document.getElementById("message").innerHTML = "";
+}
+
 window.onload = function () {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
